@@ -28,21 +28,23 @@ int CALLBACK WinMain(
 	int			nCmdShow)
 {
 	const auto pClassName = "Yatsuk";
-	WNDCLASSEX wc = {0};
-	wc = Window::Standart(wc, hInstance, pClassName, CS_OWNDC);
-	wc.lpfnWndProc = WndProc;
-	/*wc.cbSize = sizeof (wc);//
-	wc.style = CS_OWNDC;//
-	wc.lpfnWndProc = WndProc;//
-	wc.cbClsExtra = 0;//
-	wc.cbWndExtra = 0;//
-	wc.hInstance = hInstance;//
-	wc.hIcon = NULL;//
-	wc.hbrBackground = NULL;//
-	wc.hCursor = NULL;//
-	wc.lpszMenuName = NULL;//
-	wc.lpszClassName = pClassName;//
-	wc.hIconSm = NULL;/*/
+	Window wc(hInstance, pClassName, CS_OWNDC);
+	wc.Proc(WndProc);
+	//WNDCLASSEX wc = {0};
+	//wc.lpfnWndProc = WndProc;
+	//wc.lpszClassName = pClassName;
+	//wc.cbSize = sizeof (wc);//
+	//wc.style = CS_OWNDC;//
+	//wc.lpfnWndProc = WndProc;//
+	//wc.cbClsExtra = 0;//
+	//wc.cbWndExtra = 0;//
+	//wc.hInstance = hInstance;//
+	//wc.hIcon = NULL;//
+	//wc.hbrBackground = NULL;//
+	//wc.hCursor = NULL;//
+	//wc.lpszMenuName = NULL;//
+	//wc.lpszClassName = pClassName;//
+	//wc.hIconSm = NULL;//
 
 	RegisterClassEx(&wc);
 	HWND hWnd = CreateWindowEx
