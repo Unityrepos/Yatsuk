@@ -1,5 +1,9 @@
-#include  <Windows.h>
+#include "ExtraWinFile.h"
+#include <string>
+#include <iostream>
 //#include "WindowProcess.h"
+
+std::string nm = "";
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -7,6 +11,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(42);
+		break;
+	case WM_CHAR:
+		static std::string title;
+		title.push_back((char)wParam);
+		SetWindowText(hWnd, title.c_str());
 		break;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -20,7 +29,9 @@ int CALLBACK WinMain(
 {
 	const auto pClassName = "Yatsuk";
 	WNDCLASSEX wc = {0};
-	wc.cbSize = sizeof (wc);//
+	wc = Window::Standart(wc, hInstance, pClassName, CS_OWNDC);
+	wc.lpfnWndProc = WndProc;
+	/*wc.cbSize = sizeof (wc);//
 	wc.style = CS_OWNDC;//
 	wc.lpfnWndProc = WndProc;//
 	wc.cbClsExtra = 0;//
@@ -31,11 +42,9 @@ int CALLBACK WinMain(
 	wc.hCursor = NULL;//
 	wc.lpszMenuName = NULL;//
 	wc.lpszClassName = pClassName;//
-	wc.hIconSm = NULL;//
-
+	wc.hIconSm = NULL;/*/
 
 	RegisterClassEx(&wc);
-
 	HWND hWnd = CreateWindowEx
 	(
 		0, pClassName,
@@ -62,4 +71,5 @@ int CALLBACK WinMain(
 	{
 		return msg.wParam;
 	}
+	return 1;
 }
