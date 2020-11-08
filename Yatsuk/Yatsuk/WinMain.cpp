@@ -12,11 +12,63 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(42);
 		break;
-	case WM_CHAR:
-		static std::string title;
-		title.push_back((char)wParam);
-		SetWindowText(hWnd, title.c_str());
-		break;
+	}
+	if (msg == WM_KEYDOWN)
+	{
+		Keyboard::KeyDown(wParam);
+	}
+	else if (Keyboard::KeyDown() != 0)
+	{
+		Keyboard::KeyDown(0);
+	}
+	if (msg == WM_KEYUP)
+	{
+		Keyboard::KeyUp(wParam);
+	}
+	else if (Keyboard::KeyUp() != 0)
+	{
+		Keyboard::KeyUp(0);
+	}
+	if (msg == WM_CHAR)
+	{
+		Keyboard::Char(wParam);
+	}
+	else if (Keyboard::Char() != 0)
+	{
+		Keyboard::Char(0);
+	}
+	if (msg == WM_LBUTTONDOWN)
+	{
+		Keyboard::ButtonDown(LMB);
+		
+	}
+	else if (msg == WM_RBUTTONDOWN)
+	{
+		Keyboard::ButtonDown(RMB); 
+	}
+	else if (msg == WM_MBUTTONDOWN)
+	{
+		Keyboard::ButtonDown(MMB);
+	}
+	else if (Keyboard::ButtonDown() != 0)
+	{
+		Keyboard::ButtonDown(0);
+	}
+	if (msg == WM_LBUTTONUP)
+	{
+		Keyboard::ButtonUp(LMB);
+	}
+	else if (msg == WM_RBUTTONUP)
+	{
+		Keyboard::ButtonUp(RMB);
+	}
+	else if (msg == WM_MBUTTONUP)
+	{
+		Keyboard::ButtonUp(MMB);
+	}
+	else if (Keyboard::ButtonUp() != 0)
+	{
+		Keyboard::ButtonUp(0);
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
@@ -30,21 +82,6 @@ int CALLBACK WinMain(
 	const auto pClassName = "Yatsuk";
 	Window wc(hInstance, pClassName, CS_OWNDC);
 	wc.Proc(WndProc);
-	//WNDCLASSEX wc = {0};
-	//wc.lpfnWndProc = WndProc;
-	//wc.lpszClassName = pClassName;
-	//wc.cbSize = sizeof (wc);//
-	//wc.style = CS_OWNDC;//
-	//wc.lpfnWndProc = WndProc;//
-	//wc.cbClsExtra = 0;//
-	//wc.cbWndExtra = 0;//
-	//wc.hInstance = hInstance;//
-	//wc.hIcon = NULL;//
-	//wc.hbrBackground = NULL;//
-	//wc.hCursor = NULL;//
-	//wc.lpszMenuName = NULL;//
-	//wc.lpszClassName = pClassName;//
-	//wc.hIconSm = NULL;//
 
 	RegisterClassEx(&wc);
 	HWND hWnd = CreateWindowEx
@@ -64,6 +101,14 @@ int CALLBACK WinMain(
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		if (Keyboard::IsButtonDown(LMB))
+		{
+			SetWindowText(hWnd, "True");
+		}
+		if (Keyboard::IsButtonUp(LMB))
+		{
+			SetWindowText(hWnd, "False");
+		}
 	}
 	if (gResult == -1)
 	{
@@ -73,5 +118,4 @@ int CALLBACK WinMain(
 	{
 		return msg.wParam;
 	}
-	return 1;
 }
