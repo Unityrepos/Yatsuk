@@ -166,7 +166,17 @@
   <ItemGroup>
     <ClInclude Include="ExtraWinFile.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="WinCreator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Yatsuk.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Без назви-1_Монтажна обdласть 1.ico" />
+    <Image Include="LBIcon.ico" />
+    <Image Include="LbIcon64.ico" />
+    <Image Include="Без назви-1_Монтажна область 1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

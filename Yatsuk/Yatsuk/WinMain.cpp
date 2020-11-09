@@ -42,7 +42,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		Keyboard::ButtonDown(LMB);
 		Keyboard::ButtonPressed (LMB);
-		SetWindowText(hWnd, std::to_string(Keyboard::Cursor(Y, &hWnd)).c_str());
 	}
 	else if (msg == WM_RBUTTONDOWN)
 	{
@@ -89,6 +88,8 @@ int CALLBACK WinMain(
 	const auto pClassName = "Yatsuk";
 	Window wc(hInstance, pClassName, CS_OWNDC);
 	wc.Proc(WndProc);
+	wc.Icon(static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON2),IMAGE_ICON,64,64,0)));
+	wc.IconSm(static_cast<HICON>(LoadImage(hInstance, MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 16, 16, 0)));
 
 	RegisterClassEx(&wc);
 	HWND hWnd = CreateWindowEx

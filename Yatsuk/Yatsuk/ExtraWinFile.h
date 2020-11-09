@@ -8,3 +8,4 @@
 
 #include "WinCreator.h"
 #include "Keyboard.h"
+#include "resource.h"
