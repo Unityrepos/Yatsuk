@@ -3,7 +3,6 @@
 #include <iostream>
 //#include "WindowProcess.h"
 
-std::string nm = "";
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -16,6 +15,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (msg == WM_KEYDOWN)
 	{
 		Keyboard::KeyDown(wParam);
+		Keyboard::KeyPressed(wParam);
 	}
 	else if (Keyboard::KeyDown() != 0)
 	{
@@ -24,6 +24,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (msg == WM_KEYUP)
 	{
 		Keyboard::KeyUp(wParam);
+		Keyboard::KeyPressedDelete(wParam);
 	}
 	else if (Keyboard::KeyUp() != 0)
 	{
@@ -40,15 +41,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (msg == WM_LBUTTONDOWN)
 	{
 		Keyboard::ButtonDown(LMB);
-		
+		Keyboard::ButtonPressed (LMB);
+		SetWindowText(hWnd, std::to_string(Keyboard::Cursor(Y, &hWnd)).c_str());
 	}
 	else if (msg == WM_RBUTTONDOWN)
 	{
-		Keyboard::ButtonDown(RMB); 
+		Keyboard::ButtonDown(RMB);
+		Keyboard::ButtonPressed(RMB);
 	}
 	else if (msg == WM_MBUTTONDOWN)
 	{
 		Keyboard::ButtonDown(MMB);
+		Keyboard::ButtonPressed(MMB);
 	}
 	else if (Keyboard::ButtonDown() != 0)
 	{
@@ -57,14 +61,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (msg == WM_LBUTTONUP)
 	{
 		Keyboard::ButtonUp(LMB);
+		Keyboard::ButtonPressedDelete(LMB);
 	}
 	else if (msg == WM_RBUTTONUP)
 	{
 		Keyboard::ButtonUp(RMB);
+		Keyboard::ButtonPressedDelete(RMB);
 	}
 	else if (msg == WM_MBUTTONUP)
 	{
 		Keyboard::ButtonUp(MMB);
+		Keyboard::ButtonPressedDelete(MMB);
 	}
 	else if (Keyboard::ButtonUp() != 0)
 	{
@@ -101,14 +108,6 @@ int CALLBACK WinMain(
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-		if (Keyboard::IsButtonDown(LMB))
-		{
-			SetWindowText(hWnd, "True");
-		}
-		if (Keyboard::IsButtonUp(LMB))
-		{
-			SetWindowText(hWnd, "False");
-		}
 	}
 	if (gResult == -1)
 	{

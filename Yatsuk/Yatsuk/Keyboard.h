@@ -29,13 +29,25 @@
 #define RMB 2
 #define MMB 3
 #include <string>
+#include <vector>
+#include <Windows.h>
+
+
+enum Mouse
+{
+	X,
+	Y
+};
+
 class Keyboard
 {
 private:
 	static int downKey;
 	static int upKey;
+	static bool pressedKey[256];
 	static int downButton;
 	static int upButton;
+	static bool pressedButton[4];
 	static char chr;
 public:
 	static bool IsKeyDown(int key);
@@ -53,5 +65,14 @@ public:
 	static bool IsButtonUp(int key);
 	static void ButtonUp(int key);
 	static int ButtonUp();
+	static void KeyPressed(int key);
+	static void KeyPressedDelete(int key);
+	static bool IsKeyPressed(int key);
+	static void ButtonPressed(int key);
+	static void ButtonPressedDelete(int key);
+	static bool IsButtonPressed(int key);
+	static LONG Cursor(Mouse dir);
+	static LONG Cursor(Mouse dir, HWND *hWnd);
+	//static float  CursorDiff(Mouse dir);
 };
 
