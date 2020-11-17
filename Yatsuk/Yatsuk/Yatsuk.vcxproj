@@ -172,9 +172,6 @@
     <ClInclude Include="WinCreator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Yatsuk.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\..\Без назви-1_Монтажна обdласть 1.ico" />
     <Image Include="LBIcon.ico" />
     <Image Include="LbIcon64.ico" />

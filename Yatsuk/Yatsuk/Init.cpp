@@ -1,6 +1,8 @@
 #include "Init.h"
 #include <vector>
-vector<void(*)()> Init::updateFunction(0);
+std::vector<void(*)()> Init::updateFunction = {};
+int Init::tint = 1;
+HWND Init::test = NULL;
 void Init::Update(void(*func)())
 {
 	Init::updateFunction.push_back(func);

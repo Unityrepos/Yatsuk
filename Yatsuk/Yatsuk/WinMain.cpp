@@ -104,11 +104,20 @@ int CALLBACK WinMain(
 
 	MSG msg;
 	BOOL gResult;
-
+	Init::test = hWnd;
 	while (gResult = GetMessage(&msg, NULL, 0, 0) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		Init::Update([]()
+			{
+				if (Init::tint == 1)
+				{
+					MessageBox(Init::test, "111", "111", MB_OK);
+					
+				}
+			});
+		Init::Update();
 	}
 	if (gResult == -1)
 	{
